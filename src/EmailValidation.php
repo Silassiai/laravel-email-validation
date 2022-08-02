@@ -1,6 +1,6 @@
 <?php
 
-namespace Silassiai\LaravelEmailValidation\Validation;
+namespace Silassiai\LaravelEmailValidation;
 
 class EmailValidation
 {
