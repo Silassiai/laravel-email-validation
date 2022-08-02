@@ -13,6 +13,13 @@
         "email-validaton",
         "email-validator"
     ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Silassiai\\LaravelEmailValidation\\EmailValidationServiceProvider"
+            ]
+        }
+    },
     "autoload": {
         "psr-4": {
             "Silassiai\\LaravelEmailValidation\\": "src/"
