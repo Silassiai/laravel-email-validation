@@ -1,0 +1,30 @@
+{
+    "name": "silassiai/laravel-email-validation",
+    "description": "Validate your email with this email validation package on email filter, typos. dns and spoofing.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "silassiai",
+        "laravel",
+        "package",
+        "email",
+        "validation",
+        "emailvalidation",
+        "email-validaton",
+        "email-validator"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Silassiai\\LaravelEmailValidation\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Silas de Rooy",
+            "email": "silasderooy@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8"
+    }
+}
