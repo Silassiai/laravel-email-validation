@@ -12,7 +12,7 @@ Solution to easily validate email.
 You can install the package via composer:
 
 ```bash
-composer require silassiai/laravel-table-cache
+composer require silassiai/laravel-email-validation
 ```
 
 ## Typo Validation
