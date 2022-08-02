@@ -3,19 +3,20 @@
 namespace Silassiai\LaravelEmailValidation;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Silassiai\LaravelEmailValidation\Validation\EmailValidation;
 
 class EmailValidationServiceProvider extends BaseServiceProvider
 {
     public function register()
     {
-//        if (app()->runningInConsole()) {
+        if (app()->runningInConsole()) {
             $this->registerMigrations();
-//        }
+        }
 
         $this->app->singleton(
             EmailValidation::class,
             function($app){
-                return new EmailValidation('asd');
+                return new EmailValidation('test');
             }
         );
     }
