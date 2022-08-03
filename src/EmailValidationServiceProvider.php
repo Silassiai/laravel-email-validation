@@ -9,13 +9,6 @@ use Silassiai\LaravelEmailValidation\Validation\EmailValidation;
 
 class EmailValidationServiceProvider extends BaseServiceProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
     public function boot()
     {
         if (app()->runningInConsole()) {
