@@ -3,29 +3,47 @@
 namespace Silassiai\LaravelEmailValidation;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Jenssegers\Agent\Agent;
 use Silassiai\LaravelEmailValidation\Commands\SeedMailProviderDomains;
 use Silassiai\LaravelEmailValidation\Validation\EmailValidation;
 
 class EmailValidationServiceProvider extends BaseServiceProvider
 {
-    public function register()
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
+    public function boot()
     {
         if (app()->runningInConsole()) {
-            $this->registerMigrations();
-            $this->registerCommands();
+            $this
+                ->registerMigrations()
+                ->registerCommands();
         }
 
+        $this->publishes([
+            __DIR__.'/../publishes/Models/' => app_path('/Models')
+        ], 'silassiai-models');
+    }
+
+    public function register()
+    {
         $this->app->singleton(
             EmailValidation::class,
-            function($app){
-                return new EmailValidation('test');
-            }
+            fn($app) => new EmailValidation('')
         );
+
+        $this->app->alias(EmailValidation::class, EmailValidation::class);
     }
 
     public function registerMigrations()
     {
-        return $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        return $this;
     }
     
     public function registerCommands()
@@ -33,5 +51,17 @@ class EmailValidationServiceProvider extends BaseServiceProvider
         $this->commands([
             SeedMailProviderDomains::class,
         ]);
+        return $this;
+    }
+
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [EmailValidation::class, EmailValidation::class];
     }
 }

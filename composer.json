@@ -17,7 +17,10 @@
         "laravel": {
             "providers": [
                 "Silassiai\\LaravelEmailValidation\\EmailValidationServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Agent": "Silassiai\\LaravelEmailValidation\\Facades\\EmailValidationFacade"
+            }
         }
     },
     "autoload": {

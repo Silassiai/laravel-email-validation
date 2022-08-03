@@ -15,7 +15,7 @@ class CreateMailProviderDomainsTable extends Migration
     {
         Schema::create('mail_provider_domains', function (Blueprint $table) {
             $table->id();
-            $table->string('domain')->index();
+            $table->string('domain')->unique()->index();
             $table->boolean('check_typo');
         });
     }

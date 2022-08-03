@@ -4,14 +4,25 @@ namespace Silassiai\LaravelEmailValidation\Validation;
 
 class EmailValidation
 {
-    public $test;
-    public function __construct($test)
+    public const SHOULD_CHECK_ON_TYPO_PREFIX = 'silassiai:mail_provider_domains:should_check_on_typo';
+    public const SHOULD_NOT_CHECK_ON_TYPO_PREFIX = 'silassiai:mail_provider_domains:should_not_check_on_typo';
+
+    public function __construct(
+        protected readonly string $test
+    )
+    { }
+
+    public function for(string $email)
     {
-        dd($test);
+        dd(app(static::class, [$email]));
+//        return app()
     }
 
-    public function hasTypo()
+    public function hasTypo(): ?string
     {
-        return 'yes';
+        // TODO: if excluded domain, > return null
+
+        // TODO: if included domain, > check on typo
+        return 'typo.domain';
     }
 }
