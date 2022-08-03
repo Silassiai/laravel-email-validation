@@ -28,8 +28,6 @@ class EmailValidationServiceProvider extends BaseServiceProvider
             EmailValidation::class,
             fn($app) => new EmailValidation('')
         );
-
-        $this->app->alias(EmailValidation::class, EmailValidation::class);
     }
 
     public function registerMigrations()
