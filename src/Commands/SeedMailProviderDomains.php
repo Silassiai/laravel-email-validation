@@ -4,9 +4,9 @@ namespace Silassiai\LaravelEmailValidation\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Silassiai\LaravelEmailValidation\Validation\EmailValidation;
+use Illuminate\Support\Facades\Schema;
+use Silassiai\LaravelEmailValidation\Models\MailProviderDomain;
 
 class SeedMailProviderDomains extends Command
 {
@@ -15,7 +15,7 @@ class SeedMailProviderDomains extends Command
      *
      * @var string
      */
-    protected $signature = 'silassiai:migrate-seed';
+    protected $signature = 'silassiai:seed';
 
     /**
      * The console command description.
@@ -41,86 +41,56 @@ class SeedMailProviderDomains extends Command
      */
     public function handle()
     {
-        Artisan::call('migrate --path=vendor/silassiai/laravel-email-validation/database/migrations/2022_08_02_101130_create_mail_provider_domains_table.php');
+        if (!Schema::hasTable('mail_provider_domains')) {
+            Artisan::call('migrate --path=vendor/silassiai/laravel-email-validation/database/migrations/2022_08_02_101130_create_mail_provider_domains_table.php');
+            $this->info('Created table mail_provider_domains and seede successful!');
+        }
 
         $domainsThatShouldBeCheckedOnTypo = [
-            ['domain' => 'hotmail.com', 'check_typo' => true,],
-            ['domain' => 'hotmail.nl', 'check_typo' => true,],
-            ['domain' => 'gmail.com', 'check_typo' => true,],
-            ['domain' => 'gmail.nl', 'check_typo' => true,],
-            ['domain' => 'yahoo.com', 'check_typo' => true,],
-            ['domain' => 'ziggo.nl', 'check_typo' => true,],
-            ['domain' => 'hetnet.nl', 'check_typo' => true,],
-            ['domain' => 'upcmail.nl', 'check_typo' => true,],
-            ['domain' => 'versatel.nl', 'check_typo' => true,],
-            ['domain' => 'zonnet.nl', 'check_typo' => true,],
-            ['domain' => 'kpnmail.nl', 'check_typo' => true,],
-            ['domain' => 'planet.nl', 'check_typo' => true,],
-            ['domain' => 'vodafone.nl', 'check_typo' => true,],
-            ['domain' => 'outlook.nl', 'check_typo' => true,],
-            ['domain' => 'outlook.com', 'check_typo' => true,],
-            ['domain' => 'telenet.be', 'check_typo' => true,],
-            ['domain' => 'tiscali.nl', 'check_typo' => true,],
-            ['domain' => 'telfort.nl', 'check_typo' => true,],
-            ['domain' => 'online.nl', 'check_typo' => true,],
-            ['domain' => 'scarlet.nl', 'check_typo' => true,],
-            ['domain' => 'zeelandnet.nl', 'check_typo' => true,],
-            ['domain' => 'hotmail.no', 'check_typo' => true,],
-            ['domain' => 'skynet.be', 'check_typo' => true,],
+            [MailProviderDomain::DOMAIN_NAME => 'hotmail', MailProviderDomain::TLD => '["com", "nl", "con", "co", "vom", "cm", "no", "pl", "ca"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'gmail', MailProviderDomain::TLD => '["com", "nl", "con", "co", "vom", "cm", "it"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'yahoo', MailProviderDomain::TLD => '["com", "ie", "in", "ro", "nl", "fr", "de", "es", "be", "at", "dk", "fi", "gr", "se", "it", "pl", "ca"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'ziggo', MailProviderDomain::TLD => '["nl", "com", "fr", "at", "se"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'hetnet', MailProviderDomain::TLD => '["nl", "com", "es", "be", "at"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'upcmail', MailProviderDomain::TLD => '["nl", "be", "pl"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'versatel', MailProviderDomain::TLD => '["nl", "de"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'zonnet', MailProviderDomain::TLD => '["nl", "com"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'kpnmail', MailProviderDomain::TLD => '["nl", "es"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'planet', MailProviderDomain::TLD => '["nl", "uk", "de", "gr"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'vodafone', MailProviderDomain::TLD => '["nl", "com", "de", "es", "it"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'outlook', MailProviderDomain::TLD => '["nl", "com", "fr", "de", "es", "be", "at", "dk", "gr", "se", "it", "pl"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'telenet', MailProviderDomain::TLD => '["be", "uk", "at", "dk", "fi", "ru"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'tiscali', MailProviderDomain::TLD => '["nl", "com", "it"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'telfort', MailProviderDomain::TLD => '["nl", "com", "es", "at", "it", "pl"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'online', MailProviderDomain::TLD => '["nl", "be", "dk", "gr", "pl", "ru"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'scarlet', MailProviderDomain::TLD => '["nl", "de", "be", "at"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'zeelandnet', MailProviderDomain::TLD => '["nl"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'skynet', MailProviderDomain::TLD => '["be", "fr", "es"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
         ];
 
         $domainsThatShouldNotBeCheckedOnTypo = [
-            ['domain' => 'hilton.com', 'check_typo' => false],
-            ['domain' => 'yopmail.com', 'check_typo' => false],
-            ['domain' => 'mailbox.org', 'check_typo' => false],
-            ['domain' => 'onsmail.nl', 'check_typo' => false],
-            ['domain' => 'hotmail.con', 'check_typo' => false],
-            ['domain' => 'hotmail.co', 'check_typo' => false],
-            ['domain' => 'hotmail.vom', 'check_typo' => false],
-            ['domain' => 'hotmail.cm', 'check_typo' => false],
-            ['domain' => 'mail.com', 'check_typo' => false],
-            ['domain' => 'ymail.com', 'check_typo' => false],
-            ['domain' => 'email.com', 'check_typo' => false],
-            ['domain' => 'mail.bg', 'check_typo' => false],
-            ['domain' => 'mail.nl', 'check_typo' => false],
-            ['domain' => 'ymail.nl', 'check_typo' => false],
-            ['domain' => 'gmail.con', 'check_typo' => false],
-            ['domain' => 'gmail.co', 'check_typo' => false],
-            ['domain' => 'gmail.vom', 'check_typo' => false],
-            ['domain' => 'gmail.cm', 'check_typo' => false],
-            ['domain' => 'yahoo.ie', 'check_typo' => false],
-            ['domain' => 'yahoo.in', 'check_typo' => false],
-            ['domain' => 'yahoo.ro', 'check_typo' => false],
-            ['domain' => 'kpnmail.nl', 'check_typo' => false],
-            ['domain' => 'onsnet.nu', 'check_typo' => false],
-            ['domain' => 'upcmail.nl', 'check_typo' => false],
-            ['domain' => 'scarlet.nl', 'check_typo' => false],
-            ['domain' => 'kickmail.nl', 'check_typo' => false],
-            ['domain' => 'tudelft.nl', 'check_typo' => false],
-            ['domain' => 'tovert.nl', 'check_typo' => false],
-            ['domain' => 'versatel.nl', 'check_typo' => false],
-            ['domain' => 'tiscali.nl', 'check_typo' => false],
-            ['domain' => 'meandernet.nl', 'check_typo' => false],
-            ['domain' => 'meerlanden.nl', 'check_typo' => false],
+            [MailProviderDomain::DOMAIN_NAME => 'hilton', MailProviderDomain::TLD => '["com", "dk"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'yopmail', MailProviderDomain::TLD => '["com", "fr", "pl"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'mailbox', MailProviderDomain::TLD => '["org", "uk", "at", "dk", "se", "pl"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'onsmail', MailProviderDomain::TLD => '["nl"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'mail', MailProviderDomain::TLD => '["com", "bg", "nl", "fr", "uk", "de", "be", "at", "dk", "fi", "se", "ru"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'ymail', MailProviderDomain::TLD => '["com", "nl", "be", "dk"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'email', MailProviderDomain::TLD => '["com", "fr", "it", "ru"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'onsnet', MailProviderDomain::TLD => '["nu"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'kickmail', MailProviderDomain::TLD => '["nl"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'tudelft', MailProviderDomain::TLD => '["nl"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'tovert', MailProviderDomain::TLD => '["nl"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'meandernet', MailProviderDomain::TLD => '["nl"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'meerlanden', MailProviderDomain::TLD => '["nl"]', MailProviderDomain::POPULAR => false, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
         ];
 
         DB::table('mail_provider_domains')->truncate();
 
         if (DB::table('mail_provider_domains')->insert(
-            array_merge($domainsThatShouldBeCheckedOnTypo, $domainsThatShouldNotBeCheckedOnTypo))
+            array_merge($domainsThatShouldBeCheckedOnTypo, $domainsThatShouldNotBeCheckedOnTypo)
+        )
         ) {
-            DB::table('mail_provider_domains')->orderBy('id')->chunk(500, function ($rows) {
-                foreach ($rows as $row) {
-                    Cache::forever(
-                        ($row->check_typo
-                            ? EmailValidation::SHOULD_CHECK_ON_TYPO_PREFIX
-                            : EmailValidation::SHOULD_NOT_CHECK_ON_TYPO_PREFIX
-                        ) . $row->domain,
-                        $row->check_typo
-                    );
-                }
-            });
-            $this->info('Created table mail_provider_domains and seede successful!');
+            $this->info('Mail Provider Domains seeded successful!');
         } else {
             $this->error('Something went wrong!');
         }

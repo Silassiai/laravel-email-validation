@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Silassiai\LaravelEmailValidation\Models\MailProviderDomain;
 
 class CreateMailProviderDomainsTable extends Migration
 {
@@ -15,8 +16,10 @@ class CreateMailProviderDomainsTable extends Migration
     {
         Schema::create('mail_provider_domains', function (Blueprint $table) {
             $table->id();
-            $table->string('domain')->unique()->index();
-            $table->boolean('check_typo');
+            $table->string(MailProviderDomain::DOMAIN_NAME)->index()->unique();
+            $table->jsonb(MailProviderDomain::TLD)->index()->nullable();
+            $table->boolean(MailProviderDomain::POPULAR);
+            $table->timestamps();
         });
     }
 

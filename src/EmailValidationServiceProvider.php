@@ -2,42 +2,59 @@
 
 namespace Silassiai\LaravelEmailValidation;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
-use Jenssegers\Agent\Agent;
 use Silassiai\LaravelEmailValidation\Commands\SeedMailProviderDomains;
+use Silassiai\LaravelEmailValidation\Models\MailProviderDomain;
+use Silassiai\LaravelEmailValidation\Services\MailProviderDomainService;
 use Silassiai\LaravelEmailValidation\Validation\EmailValidation;
 
 class EmailValidationServiceProvider extends BaseServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         if (app()->runningInConsole()) {
             $this
                 ->registerMigrations()
                 ->registerCommands();
         }
-
-        $this->publishes([
-            __DIR__.'/../publishes/Models/' => app_path('/Models')
-        ], 'silassiai-models');
     }
 
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(
             EmailValidation::class,
-            fn($app) => new EmailValidation('')
+            fn($app) => new EmailValidation(
+                Cache::rememberForever(
+                    MailProviderDomain::class,
+                    static fn() => new MailProviderDomainService(
+                        MailProviderDomain::all()->pluck(MailProviderDomain::TLD, MailProviderDomain::DOMAIN_NAME)
+                    )
+                ),
+                Cache::rememberForever(
+                    MailProviderDomain::class . MailProviderDomain::POPULAR,
+                    static fn() => new MailProviderDomainService(
+                        MailProviderDomain::popular()->pluck(MailProviderDomain::TLD, MailProviderDomain::DOMAIN_NAME)
+                    )
+                ),
+                Cache::rememberForever(
+                    MailProviderDomain::class . MailProviderDomain::EXCLUDED,
+                    static fn() => new MailProviderDomainService(
+                        MailProviderDomain::excluded()->pluck(MailProviderDomain::TLD, MailProviderDomain::DOMAIN_NAME)
+                    )
+                )
+            )
         );
     }
 
-    public function registerMigrations()
+    public function registerMigrations(): self
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         return $this;
     }
-    
-    public function registerCommands()
+
+    public function registerCommands(): self
     {
         $this->commands([
             SeedMailProviderDomains::class,
@@ -51,7 +68,7 @@ class EmailValidationServiceProvider extends BaseServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return [EmailValidation::class, EmailValidation::class];
     }
