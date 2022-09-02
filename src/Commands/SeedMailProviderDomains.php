@@ -43,7 +43,7 @@ class SeedMailProviderDomains extends Command
     {
         if (!Schema::hasTable('mail_provider_domains')) {
             Artisan::call('migrate --path=vendor/silassiai/laravel-email-validation/database/migrations/2022_08_02_101130_create_mail_provider_domains_table.php');
-            $this->info('Created table mail_provider_domains and seede successful!');
+            $this->info('Created table mail_provider_domains');
         }
 
         $domainsThatShouldBeCheckedOnTypo = [
