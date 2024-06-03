@@ -32,6 +32,13 @@ Check on mail provider typo's
 EmailValidationFacade::for('silas@gmayll.com')->hasTypo()
 ```
 
+## Domain Validation
+
+Check on mail provider domain's
+```bash
+EmailValidationFacade::for('silas@gmayll.com')->hasDomain()
+```
+
 ## Credits
 
 - [Silas de Rooy](https://github.com/Silassiai)
