@@ -31,6 +31,14 @@ class EmailValidation
     }
 
     /**
+     * @return bool
+     */
+    public function hasDomain(): bool
+    {
+        return $this->allProviderDomains->hasDomain($this->email);
+    }
+
+    /**
      * Returns the string which should be the typo
      * @return string|null
      */
@@ -41,7 +49,7 @@ class EmailValidation
             return null;
         }
 
-        if ($this->allProviderDomains->has($this->email->getDomainName())) {
+        if ($this->hasDomain()) {
             // example: (hotmail === hotmail && email toplevel domain is NOT allowed for hotmail), check tld (not found in previous condition)
             // TODO: check if tld looks like one of the valid tlds
             return $this->email->getDomainName();

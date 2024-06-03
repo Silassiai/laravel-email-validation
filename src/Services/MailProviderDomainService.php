@@ -34,6 +34,15 @@ class MailProviderDomainService
     }
 
     /**
+     * @param Email $email
+     * @return bool
+     */
+    public function hasDomain(Email $email): bool
+    {
+        return $this->mailProviderDomains->has($email->getDomainName());
+    }
+
+    /**
      * Collection methods can still get called
      * @throws ReflectionException
      */
