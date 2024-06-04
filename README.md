@@ -27,16 +27,16 @@ php artisan silassiai:seed
 
 ## Typo Validation
 
-Check on mail provider typo's
+Check if the e-mail has a domain typo's from a mail provider
 ```bash
 EmailValidationFacade::for('silas@gmayll.com')->hasTypo()
 ```
 
 ## Domain Validation
 
-Check on mail provider domain's
+Check if the e-mail has a domain valid domain from a mail provider
 ```bash
-EmailValidationFacade::for('silas@gmayll.com')->hasDomain()
+EmailValidationFacade::for('silas@gmayll.com')->hasValidDomain()
 ```
 
 ## Credits

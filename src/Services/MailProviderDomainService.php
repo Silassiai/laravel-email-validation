@@ -37,7 +37,7 @@ class MailProviderDomainService
      * @param Email $email
      * @return bool
      */
-    public function hasDomain(Email $email): bool
+    public function hasValidDomain(Email $email): bool
     {
         return $this->mailProviderDomains->has($email->getDomainName());
     }

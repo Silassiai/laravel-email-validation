@@ -33,9 +33,9 @@ class EmailValidation
     /**
      * @return bool
      */
-    public function hasDomain(): bool
+    public function hasValidDomain(): bool
     {
-        return $this->allProviderDomains->hasDomain($this->email);
+        return $this->allProviderDomains->hasValidDomain($this->email);
     }
 
     /**
@@ -49,7 +49,7 @@ class EmailValidation
             return null;
         }
 
-        if ($this->hasDomain()) {
+        if ($this->hasValidDomain()) {
             // example: (hotmail === hotmail && email toplevel domain is NOT allowed for hotmail), check tld (not found in previous condition)
             // TODO: check if tld looks like one of the valid tlds
             return $this->email->getDomainName();
