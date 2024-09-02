@@ -20,7 +20,7 @@ It will create the needed table if it does'nt exists.
 We will make the list more complete in future versions, that will be updated with a cronjob.
 
 ```bash
-php artisan silassiai:seed
+php artisan silassiai-email-validation:seed
 ```
 
 ## Typo Validation
@@ -36,6 +36,10 @@ Check if the e-mail has a domain valid domain from a mail provider
 ```bash
 EmailValidationFacade::for('silas@gmayll.com')->hasValidDomain()
 ```
+
+## Upgrading
+
+Please see [UPGRADING](UPGRADING.md) for details.
 
 ### Changelog
 

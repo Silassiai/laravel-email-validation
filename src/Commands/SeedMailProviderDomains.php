@@ -15,7 +15,7 @@ class SeedMailProviderDomains extends Command
      *
      * @var string
      */
-    protected $signature = 'silassiai:seed';
+    protected $signature = 'silassiai-email-validation:seed';
 
     /**
      * The console command description.
@@ -47,7 +47,7 @@ class SeedMailProviderDomains extends Command
         }
 
         $domainsThatShouldBeCheckedOnTypo = [
-            [MailProviderDomain::DOMAIN_NAME => 'hotmail', MailProviderDomain::TLD => '["com", "nl", "con", "co", "vom", "cm", "no", "pl", "ca"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'hotmail', MailProviderDomain::TLD => '["com", "nl", "con", "co", "vom", "cm", "no", "pl", "ca", "de", "fr"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'gmail', MailProviderDomain::TLD => '["com", "nl", "con", "co", "vom", "cm", "it"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'yahoo', MailProviderDomain::TLD => '["com", "ie", "in", "ro", "nl", "fr", "de", "es", "be", "at", "dk", "fi", "gr", "se", "it", "pl", "ca"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'ziggo', MailProviderDomain::TLD => '["nl", "com", "fr", "at", "se"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
