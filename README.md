@@ -1,6 +1,4 @@
-# Work in progress
-
-## laravel-email-validation
+# laravel-email-validation
 Validate your email with this email validation package on email filter, typos. dns and spoofing.
 
 ## About laravel-email-validation
@@ -38,6 +36,10 @@ Check if the e-mail has a domain valid domain from a mail provider
 ```bash
 EmailValidationFacade::for('silas@gmayll.com')->hasValidDomain()
 ```
+
+### Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 ## Credits
 

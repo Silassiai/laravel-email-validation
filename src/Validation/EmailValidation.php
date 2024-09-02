@@ -96,9 +96,38 @@ class EmailValidation
         $emailDomainNameArray = str_split($this->email->getDomainName());
         $popularDomainNameArray = str_split($popularDomainName);
 
-        return count(array_diff($emailDomainNameArray, $popularDomainNameArray)) <= $this->characterDiffLevel
-            && count(array_diff($popularDomainNameArray, $emailDomainNameArray)) <= $this->characterDiffLevel
-            && $this->passFirstCharacters($emailDomainNameArray, $popularDomainNameArray);
+        // Calculate the character frequencies
+        $emailDomainFrequency = array_count_values($emailDomainNameArray);
+        $popularDomainFrequency = array_count_values($popularDomainNameArray);
+
+        // Check character differences based on frequencies.
+        $frequencyDifference = 0;
+        foreach ($emailDomainFrequency as $char => $count) {
+            if (isset($popularDomainFrequency[$char])) {
+                $frequencyDifference += abs($count - $popularDomainFrequency[$char]);
+            } else {
+                $frequencyDifference += $count;
+            }
+        }
+
+        foreach ($popularDomainFrequency as $char => $count) {
+            if (!isset($emailDomainFrequency[$char])) {
+                $frequencyDifference += $count;
+            }
+        }
+
+        // Determine if the difference in character frequency is within the allowed level
+        if ($frequencyDifference > $this->characterDiffLevel) {
+            return false;
+        }
+
+        // Check character difference
+        if (count(array_diff($emailDomainNameArray, $popularDomainNameArray)) > $this->characterDiffLevel
+            || count(array_diff($popularDomainNameArray, $emailDomainNameArray)) > $this->characterDiffLevel) {
+            return false;
+        }
+
+        return $this->passFirstCharacters($emailDomainNameArray, $popularDomainNameArray);
     }
 
     /**
