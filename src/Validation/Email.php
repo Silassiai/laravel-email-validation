@@ -36,20 +36,35 @@ class Email
     }
 
     /**
+     * The non-empty dot-separated labels of the domain
+     * @return string[]
+     */
+    private function labels(): array
+    {
+        return array_values(array_filter(explode('.', $this->domain), static fn ($label) => $label !== ''));
+    }
+
+    /**
+     * The registrable domain name: the label left of the top level domain
      * @return $this
      */
     private function setDomainName(): self
     {
-        $this->domainName = Str::before($this->domain, '.');
+        $labels = $this->labels();
+        $count = count($labels);
+        $this->domainName = $count >= 2 ? $labels[$count - 2] : ($labels[0] ?? '');
         return $this;
     }
 
     /**
+     * The top level domain: the last label of the domain
      * @return $this
      */
     private function setTopLevelDomain(): self
     {
-        $this->tld = Str::after($this->domain, '.');
+        $labels = $this->labels();
+        $count = count($labels);
+        $this->tld = $count >= 2 ? $labels[$count - 1] : '';
         return $this;
     }
 
