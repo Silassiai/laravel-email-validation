@@ -47,7 +47,7 @@ class SeedMailProviderDomains extends Command
         }
 
         $domainsThatShouldBeCheckedOnTypo = [
-            [MailProviderDomain::DOMAIN_NAME => 'hotmail', MailProviderDomain::TLD => '["com", "nl", "con", "co", "vom", "cm", "no", "pl", "ca", "de", "fr"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'hotmail', MailProviderDomain::TLD => '["com", "nl", "con", "co", "vom", "cm", "no", "pl", "ca", "de", "fr", "es"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'gmail', MailProviderDomain::TLD => '["com", "nl", "con", "co", "vom", "cm", "it"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'yahoo', MailProviderDomain::TLD => '["com", "ie", "in", "ro", "nl", "fr", "de", "es", "be", "at", "dk", "fi", "gr", "se", "it", "pl", "ca"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'ziggo', MailProviderDomain::TLD => '["nl", "com", "fr", "at", "se"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
@@ -58,7 +58,7 @@ class SeedMailProviderDomains extends Command
             [MailProviderDomain::DOMAIN_NAME => 'kpnmail', MailProviderDomain::TLD => '["nl", "es"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'planet', MailProviderDomain::TLD => '["nl", "uk", "de", "gr"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'vodafone', MailProviderDomain::TLD => '["nl", "com", "de", "es", "it"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
-            [MailProviderDomain::DOMAIN_NAME => 'outlook', MailProviderDomain::TLD => '["nl", "com", "fr", "de", "es", "be", "at", "dk", "gr", "se", "it", "pl"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
+            [MailProviderDomain::DOMAIN_NAME => 'outlook', MailProviderDomain::TLD => '["nl", "com", "fr", "de", "es", "be", "at", "dk", "gr", "se", "it", "pl", "pt"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'telenet', MailProviderDomain::TLD => '["be", "uk", "at", "dk", "fi", "ru"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'tiscali', MailProviderDomain::TLD => '["nl", "com", "it"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
             [MailProviderDomain::DOMAIN_NAME => 'telfort', MailProviderDomain::TLD => '["nl", "com", "es", "at", "it", "pl"]', MailProviderDomain::POPULAR => true, MailProviderDomain::CREATED_AT => now(), MailProviderDomain::UPDATED_AT => now(), ],
