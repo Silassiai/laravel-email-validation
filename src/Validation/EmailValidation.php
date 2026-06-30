@@ -50,8 +50,12 @@ class EmailValidation
         }
 
         if ($this->hasValidDomain()) {
-            // example: (hotmail === hotmail && email toplevel domain is NOT allowed for hotmail), check tld (not found in previous condition)
-            // TODO: check if tld looks like one of the valid tlds
+            // A known provider on a globally valid TLD (e.g. hotmail.es) is a
+            // legitimate address, not a typo.
+            if (in_array($this->email->getTld(), $this->validTopLevelDomains, true)) {
+                return null;
+            }
+
             return $this->email->getDomainName();
         }
 

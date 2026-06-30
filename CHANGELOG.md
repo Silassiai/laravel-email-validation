@@ -2,6 +2,12 @@
 
 All changes to `laravel-email-validation` will be documented in this file
 
+## Unreleased
+
+### What's Changed
+
+* fix: A known mail provider on a globally valid TLD (e.g. `hotmail.es`) is no longer reported as a typo
+
 ##  1.0.1 - 2024-09-02
 
 ### What's Changed
