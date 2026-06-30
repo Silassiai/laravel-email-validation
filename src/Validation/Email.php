@@ -22,8 +22,7 @@ class Email
         $this->email = strtolower($email);
         $this
             ->setDomain()
-            ->setDomainName()
-            ->setTopLevelDomain();
+            ->setRegistrableDomain();
     }
 
     /**
@@ -36,34 +35,16 @@ class Email
     }
 
     /**
-     * The non-empty dot-separated labels of the domain
-     * @return string[]
-     */
-    private function labels(): array
-    {
-        return array_values(array_filter(explode('.', $this->domain), static fn ($label) => $label !== ''));
-    }
-
-    /**
-     * The registrable domain name: the label left of the top level domain
+     * Parse the registrable domain from the non-empty dot-separated labels of
+     * the domain: the top level domain is the last label, the domain name the
+     * label to its left. Subdomains are ignored.
      * @return $this
      */
-    private function setDomainName(): self
+    private function setRegistrableDomain(): self
     {
-        $labels = $this->labels();
+        $labels = array_values(array_filter(explode('.', $this->domain), static fn ($label) => $label !== ''));
         $count = count($labels);
         $this->domainName = $count >= 2 ? $labels[$count - 2] : ($labels[0] ?? '');
-        return $this;
-    }
-
-    /**
-     * The top level domain: the last label of the domain
-     * @return $this
-     */
-    private function setTopLevelDomain(): self
-    {
-        $labels = $this->labels();
-        $count = count($labels);
         $this->tld = $count >= 2 ? $labels[$count - 1] : '';
         return $this;
     }
