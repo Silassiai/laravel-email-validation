@@ -50,12 +50,13 @@ class EmailValidation
         }
 
         if ($this->hasValidDomain()) {
-            // A known provider on a globally valid TLD (e.g. hotmail.es) is a
-            // legitimate address, not a typo.
+            // A known provider on a globally valid TLD is a legitimate address, not a typo.
             if (in_array($this->email->getTld(), $this->validTopLevelDomains, true)) {
+                // example: (hotmail === hotmail && es is a globally valid tld) No typo, allowed mail provider on a valid country tld
                 return null;
             }
 
+            // example: (hotmail === hotmail && xyz is NOT a globally valid tld) Typo, unknown tld for a known provider
             return $this->email->getDomainName();
         }
 
